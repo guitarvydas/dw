@@ -1,7 +1,7 @@
 drawio {
   drawIO [xml] = ‛«xml»’
 
-  xml [prolog? root] = ‛«prolog»«root»’
+  xml [prolog? root] = ‛«root»’
   prolog [ws1* lkeq any+ kqgt ws2*] = ‛«ws1»«lkeq»«any»«kqgt»«ws2»’
   root [nestedElement] = ‛«nestedElement»’
 
@@ -13,14 +13,14 @@ drawio {
 
   bottomElement [klt nameAndAttributesAndSpaces kslgt ws*] = ‛«klt»«nameAndAttributesAndSpaces»«kslgt»«ws»’
 
-  attribute [name keq str] = ‛«name»«keq»«str»’
+  attribute [name keq str] = ‛"«name»" : "«str»",’
   name [nameCharacter+] = ‛«nameCharacter»’
   nameCharacter [c] = ‛«c»’
   ws [c] = ‛«c»’
   nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
   stuff [any] = ‛«any»’
 
-  string [dq1 any* dq2] = ‛«dq1»«any»«dq2»’
+  string [dq1 any* dq2] = ‛«any»’
   dq [kdq] = ‛"’
 
   wsattribute [ws+ attribute] = ‛«ws»«attribute»’
