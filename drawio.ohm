@@ -28,10 +28,12 @@ drawio {
   name = nameCharacter+
   nameCharacter = ~"<" ~">" ~"/" ~"&" ~ws ~dq ~ws ~"=" any
   ws = " " | "\n"
-  nameAndAttributesAndSpaces = name (ws+ attribute)* ws*
+  nameAndAttributesAndSpaces = name wsattribute* ws*
   stuff = ~"<" ~">" ~"/" any
 
   string = dq (~dq any)* dq
   dq = "\""
+
+  wsattribute = ws+ attribute
 
 }
