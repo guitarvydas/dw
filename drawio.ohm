@@ -1,0 +1,37 @@
+// References:
+
+// https://cs.lmu.edu/~ray/notes/xmlgrammar/
+
+// https://www.tutorialspoint.com/xml/xml_syntax.htm
+
+//
+
+
+drawio {
+  drawIO = xml
+
+  xml = prolog? root
+  prolog = ws* "<?" (~"?>" any)+ "?>" ws*
+  root = nestedElement
+
+  nestedElement =
+    | ws* "<" nameAndAttributesAndSpaces ">" element+ "</" name ">" ws*
+
+  element =
+    | ws* nestedElement -- nestedElement
+    | ws* bottomElement -- bottomElement
+    | stuff+ -- other
+
+  bottomElement = "<" nameAndAttributesAndSpaces "/>" ws*
+
+  attribute = name "=" string
+  name = nameCharacter+
+  nameCharacter = ~"<" ~">" ~"/" ~"&" ~ws ~dq ~ws ~"=" any
+  ws = " " | "\n"
+  nameAndAttributesAndSpaces = name (ws+ attribute)* ws*
+  stuff = ~"<" ~">" ~"/" any
+
+  string = dq (~dq any)* dq
+  dq = "\""
+
+}
