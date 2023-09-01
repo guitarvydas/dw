@@ -1,10 +1,10 @@
 all: transpile
 
 transpile:
-	./fab drawio.ohm drawio.fab support.js <shapes.drawio
+	./fab drawio.ohm drawionames.fab support.js <simpletest.drawio
 
 identity:
-	./fab drawio.ohm drawio-identity.fab support.js <shapes.drawio
+	./fab xml.ohm xml-identity.fab support.js <simpletest.drawio
 
 simpletest:
-	./fab drawio.ohm drawio-identity.fab support.js <test.xml
+	./fab xml.ohm xml-identity.fab support.js <test.xml
