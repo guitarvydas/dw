@@ -46,4 +46,9 @@ DRAWIO <: XML {
     | "name" "=" string -- name
     | "id" "=" string -- id
     | name "=" string -- other
+
+  nameAndAttributesAndSpaces :=
+    | "diagram" wsattribute* ws* -- diagram
+    | name wsattribute* ws* -- other
+
 }
