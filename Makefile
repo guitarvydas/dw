@@ -1,10 +1,10 @@
-all: transpile
+all: rwr
 
-transpile:
-	./fab drawio.ohm drawionames.fab support.js <simpletest.drawio
+rwr:
+	./rewrite drawio.ohm drawionames.rwr support.js <simpletest.drawio
 
 identity:
-	./fab xml.ohm xml-identity.fab support.js <simpletest.drawio
+	./rewrite xml.ohm xml-identity.rwr support.js <simpletest.drawio
 
-simpletest:
-	./fab xml.ohm xml-identity.fab support.js <test.xml
+simple:
+	./rewrite xml.ohm xml-identity.rwr support.js <test.xml
