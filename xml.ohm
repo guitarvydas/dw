@@ -40,10 +40,3 @@ XML {
   wsattribute = ws+ attribute
 
 }
-
-DRAWIO <: XML {
-  attribute :=
-    | "name" "=" string -- name
-    | "id" "=" string -- id
-    | name "=" string -- other
-}

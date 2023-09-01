@@ -1,0 +1,32 @@
+8c8
+<   nestedElement [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
+---
+>   nestedElement [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = ‛«nameAndAttributesAndSpaces» «element»’
+10,11c10,11
+<   element_nestedElement [ws* e] = ‛«ws»«e»’
+<   element_bottomElement [ws* e] = ‛«ws»«e»’
+---
+>   element_nestedElement [ws* e] = ‛«e»’
+>   element_bottomElement [ws* e] = ‛«e»’
+14c14
+<   bottomElement [klt nameAndAttributesAndSpaces kslgt ws*] = ‛«klt»«nameAndAttributesAndSpaces»«kslgt»«ws»’
+---
+>   bottomElement [klt nameAndAttributesAndSpaces kslgt ws*] = ‛’
+16c16,19
+<   attribute [name keq str] = ‛«name»«keq»«str»’
+---
+>   attribute_name [name keq str] = ‛«str» ’
+>   attribute_id [name keq str] = ‛«name»«keq»«str»’
+>   attribute_other [name keq str] = ‛’
+> 
+20c23,26
+<   nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
+---
+> 
+>   nameAndAttributesAndSpaces_diagram [name wsattribute* ws*] = ‛\n«wsattribute»’
+>   nameAndAttributesAndSpaces_other [name wsattribute* ws*] = ‛’
+> 
+26c32
+<   wsattribute [ws+ attribute] = ‛«ws»«attribute»’
+---
+>   wsattribute [ws+ attribute] = ‛«attribute»’
