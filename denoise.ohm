@@ -48,6 +48,7 @@ DENOISE <: XML {
   stringWithSpaces = dq (~dq any)* dq
 
   nestedElement :=
+    | ws* "<" "mxGeometry" wsattribute+ ws* "/>" ws* -- mxgeometry
     | ws* "<" "mxCell" wsattribute+ ws* ">" element+ "</" "mxCell" ">" ws* -- mxcell
     | ws* "<" nameAndAttributesAndSpaces ">" element+ "</" name ">" ws* -- other
 

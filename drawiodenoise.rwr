@@ -5,12 +5,6 @@ xml {
   prolog [ws1* lkeq any+ kqgt ws2*] = ‛«ws1»«lkeq»«any»«kqgt»«ws2»’
   root [nestedElement] = ‛«nestedElement»’
 
-  nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛«ws1»(«wsattr»«ws»«kgt»«element»)«ws2»’
-
-  nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
-
   element_nestedElement [ws* e] = ‛«ws»«e»’
   element_bottomElement [ws* e] = ‛«ws»«e»’
   element_other [stuff+] = ‛«stuff»’
@@ -30,6 +24,17 @@ xml {
 
   dq [kdq] = ‛"’
 
-  wsattribute [ws+ attribute] = ‛«ws»«attribute»’
+  wsattribute [ws+ attribute] = ‛\n«attribute»’
+
+
+  nestedElement_mxgeometry [ws1* klt k wsattr+ ws* kslgt ws2*] = 
+    ‛«ws1»(geometry «wsattr»«ws»)«ws2»’
+
+  nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛«ws1»(«wsattr»«ws»«kgt»«element»)«ws2»’
+
+  nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
+
 
 }
