@@ -53,6 +53,6 @@ DENOISE <: XML {
     | ws* "<" "mxGeometry" wsattribute+ ws* ">" element+ "</" "mxGeometry" ">" ws* -- mxgeometrydeep
     | ws* "<" "mxCell" wsattribute+ ws* "/>" ws* -- mxcellshallow
     | ws* "<" "mxCell" wsattribute+ ws* ">" element+ "</" "mxCell" ">" ws* -- mxcell
-    | ws* "<" nameAndAttributesAndSpaces ">" element+ "</" name ">" ws* -- other
+    | ws* "<" name wsattribute* ws* ">" element+ "</" name ">" ws* -- other
 
 }

@@ -24,7 +24,7 @@ DENOISE_RWR {
 
   dq [kdq] = ‛"’
 
-  wsattribute [ws+ attribute] = ‛«attribute»’
+  wsattribute [ws+ attribute] = ‛ «attribute»’
 
 
   nestedElement_mxrectangle [ws1* klt k wsattr+ ws* kslgt ws2*] = 
@@ -42,8 +42,8 @@ DENOISE_RWR {
   nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
     ‛«ws1»(CELL_DEEP «wsattr»«ws»«element»)«ws2»’
 
-  nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
+  nestedElement_other [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛«ws1»«klt»«nm»«wsattr»«ws»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
 
 
 }
