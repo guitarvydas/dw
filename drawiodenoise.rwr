@@ -1,4 +1,4 @@
-xml {
+DENOISE_RWR {
   parser [xml] = ‛«xml»’
 
   xml [prolog? root] = ‛«prolog»«root»’
