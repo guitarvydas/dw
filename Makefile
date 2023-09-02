@@ -1,7 +1,10 @@
-all: rwr
+all: denoise
+
+denoise:
+	./rewrite denoise.ohm --grammarname="DENOISE" drawiodenoise.rwr support.js <simpletest.drawio
 
 rwr:
-	./rewrite drawio.ohm drawionames.rwr support.js --grammarname="DRAWIO" <simpletest.drawio
+	./rewrite drawio.ohm --grammarname="DRAWIO" drawionames.rwr support.js <simpletest.drawio
 
 identity:
 	./rewrite xml.ohm xml-identity.rwr support.js <simpletest.drawio

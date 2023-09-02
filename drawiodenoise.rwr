@@ -5,7 +5,10 @@ xml {
   prolog [ws1* lkeq any+ kqgt ws2*] = ‛«ws1»«lkeq»«any»«kqgt»«ws2»’
   root [nestedElement] = ‛«nestedElement»’
 
-  nestedElement [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
+  nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛«ws1»(«wsattr»«ws»«kgt»«element»)«ws2»’
+
+  nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
     ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
 
   element_nestedElement [ws* e] = ‛«ws»«e»’
@@ -22,7 +25,9 @@ xml {
   nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
   stuff [any] = ‛«any»’
 
-  string [dq1 any* dq2] = ‛«dq1»«any»«dq2»’
+  stringNoSpaces [dq1 c* dq2] = ‛«c»’
+  stringWithSpaces [dq1 c* dq2] = ‛«dq1»«c»«dq2»’
+
   dq [kdq] = ‛"’
 
   wsattribute [ws+ attribute] = ‛«ws»«attribute»’
