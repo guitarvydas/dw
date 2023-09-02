@@ -26,7 +26,6 @@ DENOISE_RWR {
   stringNumber [dq1 s? dq2] = ‛«s»’
   stringNoSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
   stringWithSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
-  nonQuoted [s] = ‛«s»’
   nqNumber [c+] = ‛«c»’
   nqNoSpaces [c+] = ‛«c»’
   nqWithSpaces [c+] = ‛«c»’
@@ -44,8 +43,12 @@ DENOISE_RWR {
   attribute_other [name keq str] = ‛(«name» . «str»)’
 
   stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
-  styledecl [id keq ws* c+ ksemi] = ‛(«id» . «c»)’
+  styledecl [id keq ws* s ksemi] = ‛(«id» . «s»)’
   styledeclchar [c] = ‛«c»’
+  nonQuoted [s] = ‛«s»’
+  nqNoSpacesNoSemicolon [c+] = ‛"«c»"’
+  nqWithSpacesNoSemicolon  [c+] = ‛"«c»"’
+  
 
   styleid [c+] = ‛«c»’
   styleidchar [c] = ‛«c»’

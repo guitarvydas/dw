@@ -47,7 +47,6 @@ DENOISE <: XML {
   stringNumber = dq nqNumber? dq
   stringNoSpaces = dq nqNoSpaces? dq
   stringWithSpaces = dq nqWithSpaces? dq
-  nonQuoted = nqNumber | nqNoSpaces | nqWithSpaces
   nqNumber = (~dq ~space integerChar)+
   nqNoSpaces = (~dq ~space any)+
   nqWithSpaces = (~dq any)+
@@ -62,8 +61,12 @@ DENOISE <: XML {
     | name "=" string -- other
 
   stylestring = dq styledecl+ dq
-  styledecl = styleid "=" ws* styledeclchar+ ";"
+  styledecl = styleid "=" ws* nonQuoted ";"
   styledeclchar = ~";" ~ws ~dq any
+  nonQuoted = nqNumber | nqNoSpacesNoSemicolon | nqWithSpacesNoSemicolon
+  nqNoSpacesNoSemicolon = (~";" ~dq ~space any)+
+  nqWithSpacesNoSemicolon = (~";" ~dq any)+
+  
 
   styleid = styleidchar+
   styleidchar = ~"=" ~";" ~ws ~dq any
