@@ -36,18 +36,21 @@ DENOISE_RWR {
   nestedElement_othersimple [ws1* klt nm wsattr* ws* kslgt ws2*] = 
     ‛(«nm»\n(«wsattr»\n)\n()\n)«ws2»’
 
+  nestedElement_ignoreMxFile [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛(«nm»\n()\n(«element»\n)\n)«ws2»’
+
+  nestedElement_ignoreMxGraphModel [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛(«nm»\n()\n(«element»\n)\n)«ws2»’
+
   nestedElement_other [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛(«nm»\n(«wsattr»\n)\n(«element»\n)\n)«ws2»’
+    ‛(«nm»\nmap[string]atom {«wsattr»\n},\nElement {«element»\n},\n«ws2»’
 
-  attribute_style [name keq alist] = ‛(style («alist»))’
-  attribute_other [name keq str] = ‛(«name» . «str»)’
+  attribute_style [name keq alist] = ‛"style" = map[string]Atom {«alist»\n},’
+  attribute_other [name keq str] = ‛"«name»" = «str»,’
 
-  stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
-  styledecl =
-    | styleid "=" ws* nonQuoted ";" -- valued
-    | styleid ";" -- noValue
-  styledecl_valued [id keq ws* s ksemi] = ‛(«id» . «s»)’
-  styledecl_noValue [id ksemi] = ‛(«id» . t)’
+  stylestring [dq1 styledecl+ dq2] = ‛«styledecl»,’
+  styledecl_valued [id keq ws* s ksemi] = ‛\n"«id»" = «s»,’
+  styledecl_noValue [id ksemi] = ‛\n"«id»" = true,’
   styledeclchar [c] = ‛«c»’
   nonQuoted [s] = ‛«s»’
   nqNoSpacesNoSemicolon [c+] = ‛"«c»"’

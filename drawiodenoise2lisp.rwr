@@ -1,0 +1,66 @@
+DENOISE_RWR {
+  parser [xml] = ‛«xml»’
+
+  xml [prolog? root] = ‛«prolog»«root»’
+  prolog [ws1* lkeq any+ kqgt ws2*] = ‛«ws1»«lkeq»«any»«kqgt»«ws2»’
+  root [nestedElement] = ‛«nestedElement»’
+
+  element_nestedElement [ws* e] = ‛«ws»«e»’
+  element_bottomElement [ws* e] = ‛«ws»«e»’
+  element_other [stuff+] = ‛«stuff»’
+
+  bottomElement [klt nameAndAttributesAndSpaces kslgt ws*] = 
+    ‛«klt»«nameAndAttributesAndSpaces»«kslgt»«ws»’
+
+  name [nameCharacter+] = ‛«nameCharacter»’
+  nameCharacter [c] = ‛«c»’
+  ws [c] = ‛«c»’
+  nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
+  stuff [any] = ‛«any»’
+
+  dq [kdq] = ‛"’
+
+////
+
+  string [s] = ‛«s»’
+  stringNumber [dq1 s? dq2] = ‛«s»’
+  stringNoSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
+  stringWithSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
+  nqNumber [c+] = ‛«c»’
+  nqNoSpaces [c+] = ‛«c»’
+  nqWithSpaces [c+] = ‛«c»’
+  integerChar [c] = ‛«c»’
+
+  wsattribute [ws+ attribute] = ‛\n«attribute»’
+
+  nestedElement_othersimple [ws1* klt nm wsattr* ws* kslgt ws2*] = 
+    ‛(«nm»\n(«wsattr»\n)\n()\n)«ws2»’
+
+  nestedElement_ignoreMxFile [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛(«nm»\n()\n(«element»\n)\n)«ws2»’
+
+  nestedElement_ignoreMxGraphModel [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛(«nm»\n()\n(«element»\n)\n)«ws2»’
+
+  nestedElement_other [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛(«nm»\n(«wsattr»\n)\n(«element»\n)\n)«ws2»’
+
+  attribute_style [name keq alist] = ‛(style («alist»))’
+  attribute_other [name keq str] = ‛(«name» . «str»)’
+
+  stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
+  styledecl_valued [id keq ws* s ksemi] = ‛(«id» . «s»)’
+  styledecl_noValue [id ksemi] = ‛(«id» . t)’
+  styledeclchar [c] = ‛«c»’
+  nonQuoted [s] = ‛«s»’
+  nqNoSpacesNoSemicolon [c+] = ‛"«c»"’
+  nqWithSpacesNoSemicolon  [c+] = ‛"«c»"’
+
+  nqArray [lb inner+ rb] = ‛«lb»«inner»«rb»’
+  arrayInner [arrayItem kcomma?] = ‛«arrayItem»«kcomma»’
+  arrayItem_rec [lb arrayInner+ rb] = ‛«lb»«arrayInner»«rb»’
+  arrayItem_bottom [x] = ‛«x»’
+
+  styleid [c+] = ‛«c»’
+  styleidchar [c] = ‛«c»’
+}

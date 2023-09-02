@@ -50,10 +50,12 @@ DENOISE <: XML {
   nqNumber = (~dq ~space integerChar)+
   nqNoSpaces = (~dq ~space any)+
   nqWithSpaces = (~dq any)+
-  integerChar = digit | "."
+  integerChar = digit | "." | "-" | "+"
 
   nestedElement :=
     | ws* "<" name wsattribute* ws* "/>" ws* -- othersimple
+    | ws* "<" "mxfile" wsattribute* ws* ">" element+ "</" name ">" ws* -- ignoreMxFile
+    | ws* "<" "mxGraphModel" wsattribute* ws* ">" element+ "</" name ">" ws* -- ignoreMxGraphModel
     | ws* "<" name wsattribute* ws* ">" element+ "</" name ">" ws* -- other
 
   attribute :=
