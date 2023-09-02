@@ -71,7 +71,7 @@ function compilerwr (rwrsrc, ohmlang) {
 
     if (rwrcst.failed ()) {
 	let len = rwrcst.getRightmostFailurePosition();
-        let emsg = "FORMAT: syntax error in rwrrication specification\nrightmostPosition=" + len + '\n';
+        let emsg = "FORMAT: syntax error in rewrite specification\nrightmostPosition=" + len + '\n';
         return [false, emsg];
     }
     // Step 1b. Transpile User's RWR spec to a JS object (for use with Ohm-JS)

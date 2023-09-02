@@ -43,12 +43,20 @@ DENOISE_RWR {
   attribute_other [name keq str] = ‛(«name» . «str»)’
 
   stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
-  styledecl [id keq ws* s ksemi] = ‛(«id» . «s»)’
+  styledecl =
+    | styleid "=" ws* nonQuoted ";" -- valued
+    | styleid ";" -- noValue
+  styledecl_valued [id keq ws* s ksemi] = ‛(«id» . «s»)’
+  styledecl_noValue [id ksemi] = ‛(«id» . t)’
   styledeclchar [c] = ‛«c»’
   nonQuoted [s] = ‛«s»’
   nqNoSpacesNoSemicolon [c+] = ‛"«c»"’
   nqWithSpacesNoSemicolon  [c+] = ‛"«c»"’
-  
+
+  nqArray [lb inner+ rb] = ‛«lb»«inner»«rb»’
+  arrayInner [arrayItem kcomma?] = ‛«arrayItem»«kcomma»’
+  arrayItem_rec [lb arrayInner+ rb] = ‛«lb»«arrayInner»«rb»’
+  arrayItem_bottom [x] = ‛«x»’
 
   styleid [c+] = ‛«c»’
   styleidchar [c] = ‛«c»’

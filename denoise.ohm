@@ -61,11 +61,18 @@ DENOISE <: XML {
     | name "=" string -- other
 
   stylestring = dq styledecl+ dq
-  styledecl = styleid "=" ws* nonQuoted ";"
+  styledecl =
+    | styleid "=" ws* nonQuoted ";" -- valued
+    | styleid ";" -- noValue
   styledeclchar = ~";" ~ws ~dq any
-  nonQuoted = nqNumber | nqNoSpacesNoSemicolon | nqWithSpacesNoSemicolon
+  nonQuoted = nqNumber | nqNoSpacesNoSemicolon | nqWithSpacesNoSemicolon | nqArray
   nqNoSpacesNoSemicolon = (~";" ~dq ~space any)+
   nqWithSpacesNoSemicolon = (~";" ~dq any)+
+  nqArray = "[" arrayInner+ "]"
+  arrayInner = arrayItem ","?
+  arrayItem =
+    | "[" arrayInner+ "]" -- rec
+    | nqNumber -- bottom
   
 
   styleid = styleidchar+
