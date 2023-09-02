@@ -36,8 +36,11 @@ DENOISE_RWR {
   nestedElement_mxgeometrydeep [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
     ‛«ws1»(geometry\n«wsattr»«ws»«element»)«ws2»’
 
+  nestedElement_mxcellshallow [ws1* klt kmxcell wsattr+ ws* kslgt ws2*] = 
+    ‛«ws1»(CELL_SHALLOW «wsattr»«ws»)«ws2»’
+
   nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛«ws1»(CELL «wsattr»«ws»«element»)«ws2»’
+    ‛«ws1»(CELL_DEEP «wsattr»«ws»«element»)«ws2»’
 
   nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
     ‛«ws1»«klt»«nameAndAttributesAndSpaces»«kgt»«element»«kgtsl»«name»«kgt2»«ws2»’
