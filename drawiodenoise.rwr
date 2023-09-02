@@ -27,10 +27,16 @@ xml {
   wsattribute [ws+ attribute] = ‛\n«attribute»’
 
 
-  nestedElement_mxgeometry [ws1* klt k wsattr+ ws* kslgt ws2*] = 
-    ‛«ws1»(geometry «wsattr»«ws»)«ws2»’
+  nestedElement_mxrectangle [ws1* klt k wsattr+ ws* kslgt ws2*] = 
+    ‛«ws1»(rectangle\n«wsattr»«ws»)«ws2»’
 
-  nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
+  nestedElement_mxgeometry [ws1* klt k wsattr+ ws* kslgt ws2*] = 
+    ‛«ws1»(geometry\n«wsattr»«ws»)«ws2»’
+
+  nestedElement_mxgeometrydeep [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
+    ‛«ws1»(geometry\n«wsattr»«ws»«kgt»«element»)«ws2»’
+
+nestedElement_mxcell [ws1* klt kmxcell wsattr+ ws* kgt element+ kgtsl name kgt2 ws2*] = 
     ‛«ws1»(«wsattr»«ws»«kgt»«element»)«ws2»’
 
   nestedElement_other [ws1* klt nameAndAttributesAndSpaces kgt element+ kgtsl name kgt2 ws2*] = 
