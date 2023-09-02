@@ -43,12 +43,24 @@ XML {
 
 DENOISE <: XML {
 
-  string := stringNoSpaces | stringWithSpaces
+  string := stringNumber | stringNoSpaces | stringWithSpaces
+  stringNumber = dq (~dq ~space integerChar)* dq
   stringNoSpaces = dq (~dq ~space any)* dq
   stringWithSpaces = dq (~dq any)* dq
+  integerChar = digit | "."
 
   nestedElement :=
-    | ws* "<" name wsattribute* ws* "/>" ws* -- othershallow
+    | ws* "<" name wsattribute* ws* "/>" ws* -- othersimple
     | ws* "<" name wsattribute* ws* ">" element+ "</" name ">" ws* -- other
 
+  attribute :=
+    | "style" "=" stylestring -- style
+    | name "=" string -- other
+
+  stylestring = dq styledecl+ dq
+  styledecl = styleid "=" ws* styledeclchar+ ";"
+  styledeclchar = ~";" ~ws ~dq any
+
+  styleid = styleidchar+
+  styleidchar = ~"=" ~";" ~ws ~dq any
 }

@@ -12,25 +12,35 @@ DENOISE_RWR {
   bottomElement [klt nameAndAttributesAndSpaces kslgt ws*] = 
     ‛«klt»«nameAndAttributesAndSpaces»«kslgt»«ws»’
 
-  attribute [name keq str] = ‛«name»«keq»«str»’
   name [nameCharacter+] = ‛«nameCharacter»’
   nameCharacter [c] = ‛«c»’
   ws [c] = ‛«c»’
   nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
   stuff [any] = ‛«any»’
 
-  stringNoSpaces [dq1 c* dq2] = ‛«c»’
+  stringNumber [dq1 c* dq2] = ‛«c»’
+  stringNoSpaces [dq1 c* dq2] = ‛«dq1»«c»«dq2»’
   stringWithSpaces [dq1 c* dq2] = ‛«dq1»«c»«dq2»’
 
   dq [kdq] = ‛"’
 
-  wsattribute [ws+ attribute] = ‛ «attribute»’
+////
 
-  nestedElement_othershallow [ws1* klt nm wsattr* ws* kslgt ws2*] = 
-    ‛(«nm»_SHALLOW «wsattr»«ws»)«ws2»’
+  wsattribute [ws+ attribute] = ‛\n«attribute»’
+
+  nestedElement_othersimple [ws1* klt nm wsattr* ws* kslgt ws2*] = 
+    ‛(«nm»\n(«wsattr»\n)\n()\n)«ws2»’
 
   nestedElement_other [ws1* klt nm wsattr* ws* kgt element+ kgtsl name kgt2 ws2*] = 
-    ‛(«nm»_DEEP «wsattr»«ws»«element»)«ws2»’
+    ‛(«nm»\n(«wsattr»\n)\n(«element»\n)\n)«ws2»’
 
+  attribute_style [name keq alist] = ‛(style («alist»))’
+  attribute_other [name keq str] = ‛(«name» «str»)’
 
+  stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
+  styledecl [id keq ws* c+ ksemi] = ‛(«id» . «c»)’
+  styledeclchar [c] = ‛«c»’
+
+  styleid [c+] = ‛«c»’
+  styleidchar [c] = ‛«c»’
 }
