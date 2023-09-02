@@ -18,13 +18,19 @@ DENOISE_RWR {
   nameAndAttributesAndSpaces [name wsattribute* ws*] = ‛«name»«wsattribute»«ws»’
   stuff [any] = ‛«any»’
 
-  stringNumber [dq1 c* dq2] = ‛«c»’
-  stringNoSpaces [dq1 c* dq2] = ‛«dq1»«c»«dq2»’
-  stringWithSpaces [dq1 c* dq2] = ‛«dq1»«c»«dq2»’
-
   dq [kdq] = ‛"’
 
 ////
+
+  string [s] = ‛«s»’
+  stringNumber [dq1 s? dq2] = ‛«s»’
+  stringNoSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
+  stringWithSpaces [dq1 s? dq2] = ‛«dq1»«s»«dq2»’
+  nonQuoted [s] = ‛«s»’
+  nqNumber [c+] = ‛«c»’
+  nqNoSpaces [c+] = ‛«c»’
+  nqWithSpaces [c+] = ‛«c»’
+  integerChar [c] = ‛«c»’
 
   wsattribute [ws+ attribute] = ‛\n«attribute»’
 
@@ -35,7 +41,7 @@ DENOISE_RWR {
     ‛(«nm»\n(«wsattr»\n)\n(«element»\n)\n)«ws2»’
 
   attribute_style [name keq alist] = ‛(style («alist»))’
-  attribute_other [name keq str] = ‛(«name» «str»)’
+  attribute_other [name keq str] = ‛(«name» . «str»)’
 
   stylestring [dq1 styledecl+ dq2] = ‛«styledecl»’
   styledecl [id keq ws* c+ ksemi] = ‛(«id» . «c»)’
