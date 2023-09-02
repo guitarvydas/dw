@@ -1,0 +1,11 @@
+all: rwr
+
+rwr:
+	./rewrite drawio.ohm drawionames.rwr support.js --grammarname="DRAWIO" <simpletest.drawio
+
+identity:
+	./rewrite xml.ohm xml-identity.rwr support.js <simpletest.drawio
+
+simple:
+	./rewrite xml.ohm xml-identity.rwr support.js <test.xml
+

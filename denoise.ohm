@@ -1,0 +1,57 @@
+// References:
+
+// https://cs.lmu.edu/~ray/notes/xmlgrammar/
+
+// https://www.tutorialspoint.com/xml/xml_syntax.htm
+
+//
+
+
+XML {
+  parser = xml
+
+  xml = prolog? root
+  prolog = ws* "<?" (~"?>" any)+ "?>" ws*
+  root = nestedElement
+
+  nestedElement =
+    | ws* "<" nameAndAttributesAndSpaces ">" element+ "</" name ">" ws*
+
+  element =
+    | ws* nestedElement -- nestedElement
+    | ws* bottomElement -- bottomElement
+    | stuff+ -- other
+
+  bottomElement = "<" nameAndAttributesAndSpaces "/>" ws*
+
+  attribute = name "=" string
+
+  name = nameCharacter+
+  nameCharacter = ~"<" ~">" ~"/" ~"&" ~ws ~dq ~ws ~"=" any
+  ws = " " | "\n"
+
+  nameAndAttributesAndSpaces = name wsattribute* ws*
+
+  stuff = ~"<" ~">" ~"/" any
+
+  string = dq (~dq any)* dq
+  dq = "\""
+
+  wsattribute = ws+ attribute
+
+}
+
+DENOISE <: XML {
+
+  string := stringNoSpaces | stringWithSpaces
+  stringNoSpaces = dq (~dq ~space any)* dq
+  stringWithSpaces = dq (~dq any)* dq
+
+  nestedElement :=
+    | ws* "<" "mxRectangle" wsattribute+ ws* "/>" ws* -- mxrectangle
+    | ws* "<" "mxGeometry" wsattribute+ ws* "/>" ws* -- mxgeometry
+    | ws* "<" "mxGeometry" wsattribute+ ws* ">" element+ "</" "mxGeometry" ">" ws* -- mxgeometrydeep
+    | ws* "<" "mxCell" wsattribute+ ws* ">" element+ "</" "mxCell" ">" ws* -- mxcell
+    | ws* "<" nameAndAttributesAndSpaces ">" element+ "</" name ">" ws* -- other
+
+}

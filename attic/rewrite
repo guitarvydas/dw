@@ -555,6 +555,7 @@ function main (argv) {
 	var support = argv._[2];
 	var r;
 	if (argv.grammarname) {
+	    console.error (`multi ${argv.grammarname}`);
 	    r = multi_transpile (src, argv.grammarname, grammar, rwr, ohm, compilerwr, support);
 	} else {
 	    r = transpile (src, grammar, rwr, ohm, compilerwr, support);
